@@ -1,0 +1,110 @@
+// Create the contract source code
+var LumenStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract LumenStorage is Sequence{ address owner; struct LumenThreshold{ uint lowerTimes100; uint upperTimes100; } struct LumenRecord { address node; uint valueTimes100; string deviceID; uint timestamp; } LumenThreshold public threshold; mapping (uint => LumenRecord) public lumenDataMap; event LumenRecordData(address nodeAddress, uint lumenValueTimes100, string deviceID, uint timestamp); event LumenThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestamp); function LumenStorage(){ owner = msg.sender; threshold.lowerTimes100 = 0; threshold.upperTimes100 = 0; } function setLumenRecord(uint lumenValueTimes100, string deviceID) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; lumenDataMap[recordCount].node = node; lumenDataMap[recordCount].valueTimes100 = lumenValueTimes100; lumenDataMap[recordCount].deviceID = deviceID; lumenDataMap[recordCount].timestamp = timestamp; LumenRecordData(lumenDataMap[recordCount].node, lumenDataMap[recordCount].valueTimes100, lumenDataMap[recordCount].deviceID, lumenDataMap[recordCount].timestamp); } function setLumenThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; if (node == owner){ threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; LumenThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete lumenDataMap[i]; } sequenceNo = 0; } }"
+
+// Compile the source with solc - Solidity Compiler
+var LumenStorageCompiled = web3.eth.compile.solidity(LumenStorageSource)
+
+// Extracts info from contract, print json serialisation on console
+LumenStorageCompiled.LumenStorage.info
+
+// Create contract object
+var LumenStorageContract= web3.eth.contract(LumenStorageCompiled.LumenStorage.info.abiDefinition);
+
+// Submit contract for inclusion in the Blockchain
+var LumenStorage = LumenStorageContract.new( { from:web3.eth.accounts[0], data:LumenStorageCompiled.LumenStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+
+
+>>>>>>>>>>>>>>>>>>
+
+contract Sequence {
+    
+	uint public sequenceNo;
+    
+    function Sequence() { 
+		sequenceNo = 0;
+	} 
+	
+	function nextVal() returns (uint number) { 
+		return ++sequenceNo;
+	} 
+	
+}
+
+
+contract LumenStorage is Sequence{
+
+    address owner;
+    
+    struct LumenThreshold{
+    	uint lowerTimes100;
+    	uint upperTimes100;
+    }
+    
+	struct LumenRecord {
+	    address node;
+	    uint valueTimes100;
+		string deviceID;
+	    uint timestamp;
+	}
+	
+	LumenThreshold public threshold;
+	
+    mapping (uint => LumenRecord) public lumenDataMap;
+    
+    event LumenRecordData(address nodeAddress, 
+        uint lumenValueTimes100,
+		string deviceID, 
+	    uint timestamp); 
+	    
+	event LumenThresholds(address nodeAddress, 
+	    uint thresholdLowerTimes100, 
+        uint thresholdUpperTimes100,
+        uint timestamp); 
+		
+	function LumenStorage(){
+		owner = msg.sender;
+		threshold.lowerTimes100 = 0;
+		threshold.upperTimes100 = 0;	
+	}
+
+    function setLumenRecord(uint lumenValueTimes100, string deviceID)
+	{ 
+    	uint recordCount = nextVal();
+        address node = msg.sender;
+        uint timestamp = now;
+            
+        lumenDataMap[recordCount].node = node;
+        lumenDataMap[recordCount].valueTimes100 = lumenValueTimes100;
+		lumenDataMap[recordCount].deviceID = deviceID;
+    	lumenDataMap[recordCount].timestamp = timestamp;
+    	    
+    	LumenRecordData(lumenDataMap[recordCount].node, lumenDataMap[recordCount].valueTimes100, lumenDataMap[recordCount].deviceID, lumenDataMap[recordCount].timestamp);
+	}
+	
+	
+	function setLumenThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100)
+	{ 
+	
+        address node = msg.sender;
+        uint timestamp = now;
+		
+		if (node == owner){            
+			threshold.lowerTimes100 = lowerThresholdTimes100;
+			threshold.upperTimes100 = upperThresholdTimes100;
+				
+			LumenThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp);
+		}
+	}
+
+	
+	function reset()
+	{ 
+	    for (uint i = 1; i<=sequenceNo; i++){
+             delete lumenDataMap[i];
+        }
+		sequenceNo = 0;
+	}
+
+ }
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>> 

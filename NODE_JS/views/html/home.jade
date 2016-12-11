@@ -1,0 +1,337 @@
+html
+  head
+    title IOT BLOCKCHAIN
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='css/bootstrap.min.css')
+    script(src='js/jquery.min.js')
+    script(src='js/bootstrap.min.js')
+    script(src='js/bootstrap-tab.js')
+    script(type='text/javascript', src='js/web3.min.js')
+    script(type='text/javascript', src='js/common.js')
+    script(type='text/javascript', src='js/tempUtils.js')
+    script(type='text/javascript', src='js/humidUtils.js')
+    script(type='text/javascript', src='js/lumenUtils.js')
+    script(type='text/javascript', src='js/events.js')
+    script(type='text/javascript', src='/socket.io/socket.io.js')
+    script(type='text/javascript', src='js/funcitons-1.js')
+  body.full(onload='init()')
+    .container-fluid
+      #content
+        .navbar-header
+          a.navbar-brand(href='#')
+            font(color='blue')
+              b IOT Blockchain
+        ul.nav.nav-tabs
+          li.active
+            a(data-toggle='tab', href='#thresholds') Thresholds
+          li
+            a(data-toggle='tab', href='#dashboard') Dashboard
+          li
+            a(data-toggle='tab', href='#blockchainView', onclick='return displayBCV();') Blockchain View
+        .tab-content
+          // THRESHOLD RESET BEGIN
+          //.col-sm-12
+              input(type='button',onclick='call()' value='Submit')
+          #thresholds.tab-pane.active
+            form#thresholdReset
+              .form-group
+                .col-sm-8
+                  label.labelcss
+                  .labelbigcss
+                    font(color='magenta')
+                      h5
+                        b TEMPERATURE THRESHOLDS RESET 
+              .form-group
+                .col-sm-6.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss
+                    label.labelcss(for='tempLower')
+                      | Lower threshold value 
+                      font(color='blue')  (° C)
+                    input#tempLower.form-control.inputcss(type='text')
+                    label.labelcss
+                .col-sm-6.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='tempUpper')
+                      | Upper threshold value 
+                      font(color='blue')  (° C)
+                    input#tempUpper.form-control.inputcss(type='text')
+                    label.labelcss
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                .firstcolmargin
+                  input.btn.btn-lg.btn-block.submitcss(type='button', onclick='submitToChainTR()', value='SUBMIT')
+                  button#notifyTR.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#notifyModalTR') Open Modal
+              #notifyModalTR.modal.fade(role='dialog')
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal') ×
+                      h4.modal-title Success! Temperature Threshold Reset
+                    .modal-body
+                      p#modaltextTR
+                    .modal-footer
+                      button.btn.btn-default(type='button', data-dismiss='modal') Close
+              // Humidity
+              .col-sm-8
+                label.labelcss
+                .labelbigcss
+                  font(color='magenta')
+                    h5
+                      b HUMIDITY THRESHOLDS RESET 
+              .form-group
+                .col-sm-6.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss
+                    label.labelcss(for='humidLower')
+                      | Lower threshold value 
+                      font(color='blue')  (%)
+                    input#humidLower.form-control.inputcss(type='text')
+                    label.labelcss
+                .col-sm-6.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='tempUpper')
+                      | Upper threshold value 
+                      font(color='blue')  (%)
+                    input#humidUpper.form-control.inputcss(type='text')
+                    label.labelcss
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                .firstcolmargin
+                  input.btn.btn-lg.btn-block.submitcss(type='button', onclick='submitToChainHR()', value='SUBMIT')
+                  button#notifyHR.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#notifyModalHR') Open Modal
+              #notifyModalHR.modal.fade(role='dialog')
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal') ×
+                      h4.modal-title Success! Humidity Threshold Reset
+                    .modal-body
+                      p#modaltextHR
+                    .modal-footer
+                      button.btn.btn-default(type='button', data-dismiss='modal') Close
+              // LUMINANCE
+              .col-sm-8
+                label.labelcss
+                .labelbigcss
+                  font(color='magenta')
+                    h5
+                      b LUMINANCE THRESHOLDS RESET 
+              .form-group
+                .col-sm-6.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss
+                    label.labelcss(for='tempLower')
+                      | Lower threshold value 
+                      font(color='blue')  (lux)
+                    input#lumenLower.form-control.inputcss(type='text')
+                    label.labelcss
+                .col-sm-6.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='tempUpper')
+                      | Upper threshold value 
+                      font(color='blue')  (lux)
+                    input#lumenUpper.form-control.inputcss(type='text')
+                    label.labelcss
+              .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                .firstcolmargin
+                  input.btn.btn-lg.btn-block.submitcss(type='button', onclick='submitToChainLR()', value='SUBMIT')
+                  button#notifyLR.btn.btn-info.btn-lg(type='button', data-toggle='modal', data-target='#notifyModalLR') Open Modal
+              #notifyModalLR.modal.fade(role='dialog')
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal') ×
+                      h4.modal-title Success! Luminance Threshold Reset
+                    .modal-body
+                      p#modaltextLR
+                    .modal-footer
+                      button.btn.btn-default(type='button', data-dismiss='modal') Close
+          // THRESHOLD RESET END
+          // DASHBOARD DISPLAY BEGIN
+          #dashboard.tab-pane
+            form#dashboardDisplay
+              .form-group
+                .col-sm-8
+                  label.labelcss
+                  label.labelcss
+                  .labelbigcss
+                    font(color='magenta')
+                      h5
+                        b LAST RECORDED TEMPERATURE DETAILS FROM IOT DEVICE
+              .form-group
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='tempNodeID') Recording Node ID
+                    input#tempNodeID.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='tempDeviceID') Recording Device ID
+                    input#tempDeviceID.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='tempValue')
+                      | Recorded Temperature Value 
+                      font(color='blue')  (° C)
+                    input#tempValue.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='tempTimestamp') Timestamp
+                    input#tempTimestamp.form-control.inputcss(type='text', value='', disabled='')
+                    label.labelcss  
+                    label.labelcss  
+                #tempGlow.col-sm-12.col-md-6.col-lg-6
+              // Humidity
+              .form-group
+                .col-sm-8
+                  label.labelcss
+                  label.labelcss
+                  label.labelcss
+                  label.labelcss
+                  .labelbigcss
+                    font(color='magenta')
+                      h5
+                        b LAST RECORDED HUMIDITY DETAILS FROM IOT DEVICE
+              .form-group
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='humidNodeID') Recording Node ID
+                    input#humidNodeID.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='humidDeviceID') Recording Device ID
+                    input#humidDeviceID.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='humidValue')
+                      | Recorded Humidity Value 
+                      font(color='blue')  (%)
+                    input#humidValue.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='humidTimestamp') Timestamp
+                    input#humidTimestamp.form-control.inputcss(type='text', value='', disabled='')
+                    label.labelcss  
+                    label.labelcss  
+                #humidGlow.col-sm-12.col-md-6.col-lg-6
+              // Luminance
+              .form-group
+                .col-sm-8
+                  label.labelcss
+                  label.labelcss
+                  label.labelcss
+                  label.labelcss
+                  .labelbigcss
+                    font(color='magenta')
+                      h5
+                        b LAST RECORDED LUMINANCE DETAILS FROM IOT DEVICE
+              .form-group
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='lumenNodeID') Recording Node ID
+                    input#lumenNodeID.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='lumenDeviceID') Recording Device ID
+                    input#lumenDeviceID.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='lumenValue')
+                      | Recorded Luminance Value 
+                      font(color='blue')  (lux)
+                    input#lumenValue.form-control.inputcss(type='text', value='', disabled='')
+                .col-sm-12.col-md-6.col-lg-6
+                  .firstcolmargin
+                    label.labelcss(for='lumenTimestamp') Timestamp
+                    input#lumenTimestamp.form-control.inputcss(type='text', value='', disabled='')
+                    label.labelcss  
+                    label.labelcss  
+                #lumenGlow.col-sm-12.col-md-6.col-lg-6
+          // DASHBOARD DISPLAY END
+          // BLOCKCHAIN VIEW BEGIN
+          #blockchainView.tab-pane
+            form
+              .form-group
+                .col-sm-12
+                  label.labelcss  
+                  label.labelcss  
+                  .labelbigcss
+                    font(color='magenta')
+                      h5
+                        b BLOCKCHAIN VIEW
+                  label.labelcss  
+                  label.labelcss  
+              .form-group
+                .col-sm-12
+                  .panel.panel-warning
+                    .panel-heading
+                      b Ethereum Recent Blocks
+                    .panel-body
+                      #tableBCV
+              .form-group
+                .col-sm-8
+                  #tableBCVDetails
+            form#blockDetails
+              .form-group
+                .col-sm-12
+                  .panel.panel-warning
+                    .panel-heading
+                      b Ethereum Block Details
+                    .panel-body
+                      #title
+                        h3  Block
+                      table.table.table-striped.table-bordered.table-hover
+                        tr
+                          td
+                            strong Hash: 
+                          td
+                            span#hash
+                        tr
+                          td
+                            strong Difficulty: 
+                          td
+                            span#difficulty(<='', span='')
+                        tr
+                          td
+                            strong Miner: 
+                          td
+                            span#miner
+                        tr
+                          td
+                            strong Gas Limit: 
+                          td
+                            span#gasLimit
+                        tr
+                          td
+                            strong Gas Used: 
+                          td
+                            span#gasUsed
+                        tr
+                          td
+                            strong Timestamp: 
+                          td
+                            span#timestamp
+                        tr
+                          td
+                            strong Size: 
+                          td
+                            span#size
+                        tr
+                          td
+                            strong Extra Data: 
+                          td
+                            span#extraData
+                        tr
+                          td
+                            strong State Root: 
+                          td
+                            span#stateRoot
+                        tr
+                          td
+                            strong Nonce: 
+                          td
+                            span#nonce
+                      div
+                        h4 Transactions
+                      #tableTrans
+                  | ;
+        // BLOCKCHAIN VIEW END
