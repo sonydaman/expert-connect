@@ -9,7 +9,7 @@ A)NODE_JS FOLDER
 	3.) RUN CMD GO TO DIRECTORY
 	4.) npm INSTALL
 	5.) npm start
-B)BIT_COIN FOLDER
+B)BLOCK CHAIN FOLDER
 	1.)startserver.bat
 	2.)loadScript("init.js")
 	3.)node-1:password   pass1
