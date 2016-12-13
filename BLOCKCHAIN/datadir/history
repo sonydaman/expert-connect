@@ -1,0 +1,542 @@
+web3.net.peerCount
+admin.nodeInfo.NodeUrl
+web3.net.peerCount
+loadScript("init.js")
+// Create the contract source code
+var TempStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+var TempStorageCompiled = web3.eth.compile.solidity(TempStorageSource)
+// Extracts info from contract, print json serialisation on console
+TempStorageCompiled.TempStorage.info
+// Create contract object
+var TempStorageContract = web3.eth.contract(TempStorageCompiled.TempStorage.info.abiDefinition);
+// Compile the source with solc - Solidity Compiler
+var TempStorageCompiled = web3.eth.compile.solidity(TempStorageSource)
+// Extracts info from contract, print json serialisation on console
+TempStorageCompiled.TempStorage.info
+// Create the contract source code
+var TempStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TempStorageCompiled = web3.eth.compile.solidity(TempStorageSource)
+TempStorageCompiled.TempStorage.info
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+TempStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TempStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TempStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TempStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+web3.eth.accounts[0]
+var TemparatureStorageContract = web3.eth.contract(TempStorageCompiled.TemparatureStorage.info.abiDefinition);
+TempStorageCompiled.TemparatureStorage.code
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TempStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+TempStorageContract
+TempStorageCompiled.TemparatureStorage.info.abiDefinition
+balance = web3.fromWei(eth.getBalance(eth.accounts[0]), "ether");
+eth.mining
+loadScript("mining.js")
+var TemparatureStorageContract = web3.eth.contract(TempStorageCompiled.TemparatureStorage.info.abiDefinition);
+eth
+web3
+eth.pendingTransactions
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TempStorageCompiled.TemparatureStorage.code, gas: 100000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TempStorageCompiled.TemparatureStorage.code, gas: 0 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TempStorageCompiled.TemparatureStorage.code, gas: 100000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 100000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TempStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 100000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+TemparatureStorageCompiled.TemparatureStorage.info
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 100000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+eth.mining
+loadScript("mining.js")
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 100000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 1000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TempStorageContract.at(TempStorageContractAddress).getTempThresholds()
+TempStorageContractAddress
+TemparatureStorage.at(TempStorageContractAddress).getTempThresholds()
+TemparatureStorageContract
+loadScript("init.js")
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds()
+TemparatureStorageContract.at("0xb1a388f5259a1b402c5702b45c84c64cffc6efa6").getTempThresholds()
+TempStorageContractAddress
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds()
+var test = TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds()
+test
+var test = TemparatureStorageContract.at(TempStorageContractAddress)
+test
+var test1 = test.getTempThresholds()
+test1
+var test1 = test.threshold
+test1
+var test1 = test.threshold.lowerTimes100
+var test1 = test.address
+test1
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function getTempRecord2(uint recordPosition) returns (uint valueTimes100) { valueTimes100 = tempDataMap[recordPosition].valueTimes100; return valueTimes100; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds()
+var test = TemparatureStorageContract.at(TempStorageContractAddress)
+test
+var test2 = test.getTempRecord2();
+test2
+var TemparatureStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() public returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function getTempThresholds2() public returns (uint upperThresholdTimes100) { upperThresholdTimes100 = threshold.upperTimes100; return upperThresholdTimes100; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } } "
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds()
+var test = TemparatureStorageContract.at(TempStorageContractAddress)
+var test2 = test.getTempRecord2();
+test
+test.threshold
+test.threshold()
+test.getTempThresholds2()
+test.threshold.lowerTimes100
+test2 = test.threshold.lowerTimes100
+test2
+test2 = test.threshold.lowerTimes100()
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function TemparatureStorage(){ threshold.lowerTimes100 = 25; threshold.upperTimes100 = 30; } function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() public returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function getTempThresholds2() public returns (uint upperThresholdTimes100) { upperThresholdTimes100 = threshold.upperTimes100; return upperThresholdTimes100; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+var test2 = test.threshold.lowerTimes100;
+var test = TemparatureStorageContract.at(TempStorageContractAddress)
+var test2 = test.threshold.lowerTimes100;
+test2
+test
+TemparatureStorageContract.at(TempStorageContractAddress).threshold
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds2():
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds2()
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds2();
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap():
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[0]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[][0]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[1]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[2]
+var TemparatureStorageSource = " contract Sequence { uint sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function TemparatureStorage(){ threshold.lowerTimes100 = 25; threshold.upperTimes100 = 30; } function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function getTempRecord(uint recordPosition) returns (address nodeAddres, uint valueTimes100, uint timestamp) { nodeAddres = tempDataMap[recordPosition].node; valueTimes100 = tempDataMap[recordPosition].valueTimes100; timestamp = tempDataMap[recordPosition].timestamp; } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function getTempThresholds() public returns (uint lowerThresholdTimes100, uint upperThresholdTimes100, uint tempRecordCount) { lowerThresholdTimes100 = threshold.lowerTimes100; upperThresholdTimes100 = threshold.upperTimes100; tempRecordCount = sequenceNo; } function getTempThresholds2() public returns (uint upperThresholdTimes100) { upperThresholdTimes100 = threshold.upperTimes100; } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } } "
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap():
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()[0]
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds2()
+TemparatureStorageContract.at(TempStorageContractAddress).getTempThresholds()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[0]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0]()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0].node
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0].node()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0]
+test = TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+test[0]
+test = TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0]
+test
+test.node
+test = TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[0].node
+test = TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()
+TemparatureStorageContract.at(TempStorageContractAddress).sequenceNo()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+function setTempRecord(tempValueTimes100){
+var transHash = TemparatureStorageContract.at(TempStorageContractAddress).setTempRecord.sendTransaction(tempValueTimes100, {from: coinBaseAddress, data:SharedAccoCompiled.SharedAcco.code, gas: 10000000});
+console.log("transHash: " + transHash); 
+return transHash; 
+}
+setTempRecord(22)
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAddEvent(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholdsEvent(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAddEvent(node, tempValueTimes100, timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholdsEvent(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+function setTempRecord(tempValueTimes100){
+var transHash = TemparatureStorageContract.at(TempStorageContractAddress).setTempRecord.sendTransaction(tempValueTimes100, {from: coinBaseAddress, data:SharedAccoCompiled.SharedAcco.code, gas: 10000000});
+console.log("transHash: " + transHash); 
+return transHash; 
+}
+setTempRecord(22)
+function setTempRecord(tempValueTimes100){
+var transHash = TemparatureStorageContract.at(TempStorageContractAddress).setTempRecord.sendTransaction(tempValueTimes100, {from: coinBaseAddress, data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000});
+console.log("transHash: " + transHash); 
+return transHash; 
+}
+setTempRecord(22)
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).sequenceNo()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+setTempRecord(22)
+TemparatureStorageContract.at(TempStorageContractAddress).sequenceNo()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+loadScript("init.js")
+loadScript("tempEvents.js")
+loadScript("init.js")
+loadScript("tempEvents.js")
+loadScript("init.js")
+TemparatureStorageContract
+TempStorageContractAddress
+loadScript("init.js")
+TemparatureStorageContract
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAdd(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAdd(node, tempValueTimes100, timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholds(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContractTemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TemparatureStorageContract
+// Create the contract source code
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAdd(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAdd(node, tempValueTimes100, timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholds(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContractTemparatureStorageContract = web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAdd(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAdd(node, tempValueTimes100, timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholds(node, lowerThresholdTimes100, lowerThresholdTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract= web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TemparatureStorageContract
+loadScript("init.js")
+var tempAddEvent = TemparatureStorageContract.at(TempStorageContractAddress).TempAdd();
+var thresholdsEvent = TempStorageContract.at(TempStorageContractAddress).TempThresholds();
+var tempAddEvent = TemparatureStorageContract.at(TempStorageContractAddress).TempAdd();
+var thresholdsEvent = TemparatureStorageContract.at(TempStorageContractAddress).TempThresholds();
+loadScript("init.js")
+setTempRecord(23)
+TemparatureStorageContract.at(TempStorageContractAddress).sequenceNo()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[1]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[1]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[1].node()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[1]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[1]()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempAdd(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempAdd(tempDataMap[recordCount].node, tempDataMap[recordCount].valueTimes100, tempDataMap[recordCount].timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = lowerThresholdTimes100; TempThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract= web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+setTempRecord(23)
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap[1].node()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap.node()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap().node[0]
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()
+TemparatureStorageContract.at(TempStorageContractAddress).threshold[0]
+TemparatureStorageContract.at(TempStorageContractAddress).threshold().[0]
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()[0]
+TemparatureStorageContract.at(TempStorageContractAddress).threshold().lowerTimes100
+TemparatureStorageContract.at(TempStorageContractAddress).threshold().[0].lowerTimes100
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()[0].lowerTimes100
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()[0]
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[4]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[1]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[2]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()[3]
+TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap().lowerTimes100
+test = TemparatureStorageContract.at(TempStorageContractAddress).tempDataMap()
+test
+loadScript("init.js")
+setTempThresholds(25,30)
+TemparatureStorageContract.at(TempStorageContractAddress).threshold()
+ct Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempRecordData(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempRecordData(tempDataMap[recordCount].node, tempDataMap[recordCount].valueTimes100, tempDataMap[recordCount].timestamp); } function getTempRecord(uint position) { TempRecordData(tempDataMap[position].node, tempDataMap[position].valueTimes100, tempDataMap[position].timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; TempThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract= web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+TemparatureStorageContract.at(TempStorageContractAddress).sequenceNo()
+getTempRecord(0)
+setTempRecord(23)
+loadScript("init.js")
+setTempRecord(23)
+var tempDataEvent = TemparatureStorageContract.at(TempStorageContractAddress).TempRecordData();
+// Start Event Listener for Temperature Data Event
+tempDataEvent.watch(function(error, result){
+console.log(" ");
+console.log("TempStorageContract Event Listener - Temperature Record Details...");
+var jsonString = JSON.stringify(result.args);
+console.log("Event Message from Blockchain TempStorageContract Contract ->  " + jsonString);
+console.log(" ");
+});
+setTempRecord(23)
+TemparatureStorage
+TemparatureStorageContract
+setTempThresholds(25,30)
+loadScript("init.js")
+setTempRecord(23)
+setTempThresholds(25,30)
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempRecordData(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempRecordData(tempDataMap[recordCount].node, tempDataMap[recordCount].valueTimes100, tempDataMap[recordCount].timestamp); } function getTempRecord(uint position) { TempRecordData(tempDataMap[position].node, tempDataMap[position].valueTimes100, tempDataMap[position].timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; TempThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract= web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+loadScript("init.js")
+ Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempRecordData(address nodeAddress, uint tempValueTimes100, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestam); function setTempRecord(uint tempValueTimes100) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].timestamp = timestamp; TempRecordData(tempDataMap[recordCount].node, tempDataMap[recordCount].valueTimes100, tempDataMap[recordCount].timestamp); } function getTempRecord(uint position) { TempRecordData(tempDataMap[position].node, tempDataMap[position].valueTimes100, tempDataMap[position].timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; TempThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract= web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+setTempRecord(27.00, 12345)
+setTempRecord(27.234, 12345)
+getTempRecordAt(getTempHistRecordCount())
+setTempThresholds(25.775,30.2677) 
+loadScript("init.js")
+setTempThresholds(25.775,30.2677) 
+setTempThresholds(25.775a,30.2677) 
+getTempThresholdLower()
+loadScript("init.js")
+getTempThresholdLower()
+getTempFlag(27.00);
+getTempFlag(27.6700);
+getTempFlag(21.6700);
+getTempFlag(31.6700);
+setTempRecord(27.234, 12345)
+setTempRecord(21.234, 12345)
+setTempRecord(33.234, 12345)
+getTempHistRecordCount()
+setTempRecord(21.234, 12345)
+setTempRecord(27.234, 12345)
+// Create the contract source code
+var HumidityStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract HumidityStorage is Sequence{ address owner; struct HumidThreshold{ uint lowerTimes100; uint upperTimes100; } struct HumidRecord { address node; uint valueTimes100; uint deviceID; uint timestamp; } HumidThreshold public threshold; mapping (uint => HumidRecord) public humidDataMap; event HumidRecordData(address nodeAddress, uint humidValueTimes100, uint deviceID, uint timestamp); event HumidThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestamp); function HumidityStorage(){ owner = msg.sender; threshold.lowerTimes100 = 0; threshold.upperTimes100 = 0; } function setHumidRecord(uint humidValueTimes100, uint deviceID) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; humidDataMap[recordCount].node = node; humidDataMap[recordCount].valueTimes100 = humidValueTimes100; humidDataMap[recordCount].deviceID = deviceID; humidDataMap[recordCount].timestamp = timestamp; HumidRecordData(humidDataMap[recordCount].node, humidDataMap[recordCount].valueTimes100, humidDataMap[recordCount].deviceID, humidDataMap[recordCount].timestamp); } function setHumidThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; if (node == owner){ threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; HumidThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete humidDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var HumidityStorageCompiled = web3.eth.compile.solidity(HumidityStorageSource)
+// Extracts info from contract, print json serialisation on console
+HumidityStorageCompiled.HumidityStorage.info
+// Create contract object
+var HumidityStorageContract= web3.eth.contract(HumidityStorageCompiled.HumidityStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var HumidityStorage = HumidityStorageContract.new( { from:web3.eth.accounts[0], data:HumidityStorageCompiled.HumidityStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+resetHumid()
+setHumidThresholds(25.00,60.00)
+setHumidThresholds(25.34,60.00)
+setHumidThresholds(25.34,60.28)
+setHumidRecord(45.32, 12345)
+getHumidThresholdLower()
+getHumidThresholdUpper()
+getHumidHistRecordCount()
+getHumidRecordAt(getTempHistRecordCount())
+getHumidRecordAt(getHumidHistRecordCount())
+printHumidRecordAt(getHumidHistRecordCount())
+getHumidFlag(77.58);
+getHumidFlag(17.58);
+getHumidFlag(67.58);
+getHumidFlag(57.58);
+setHumidRecord(45.32, humid12345)
+setHumidRecord(48.32, 12345)
+setHumidRecord(22.32, 12345)
+setHumidRecord(93.32, 12345)
+setHumidRecord(60.32, 12345)
+setHumidRecord(45.32, 5555)
+setHumidRecord(95.32, 5555)
+setTempRecord(20.23, 1111) 
+loadScript("init.js")
+setTempRecord(20.23, 1111) 
+var TemparatureStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract TemparatureStorage is Sequence{ address owner; struct TempThreshold{ uint lowerTimes100; uint upperTimes100; } struct TempRecord { address node; uint valueTimes100; string deviceID; uint timestamp; } TempThreshold public threshold; mapping (uint => TempRecord) public tempDataMap; event TempRecordData(address nodeAddress, uint tempValueTimes100, string deviceID, uint timestamp); event TempThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestamp); function TemparatureStorage(){ owner = msg.sender; threshold.lowerTimes100 = 0; threshold.upperTimes100 = 0; } function setTempRecord(uint tempValueTimes100, string deviceID) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; tempDataMap[recordCount].node = node; tempDataMap[recordCount].valueTimes100 = tempValueTimes100; tempDataMap[recordCount].deviceID = deviceID; tempDataMap[recordCount].timestamp = timestamp; TempRecordData(tempDataMap[recordCount].node, tempDataMap[recordCount].valueTimes100, tempDataMap[recordCount].deviceID, tempDataMap[recordCount].timestamp); } function setTempThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; if (node == owner){ threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; TempThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete tempDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var TemparatureStorageCompiled = web3.eth.compile.solidity(TemparatureStorageSource)
+// Extracts info from contract, print json serialisation on console
+TemparatureStorageCompiled.TemparatureStorage.info
+// Create contract object
+var TemparatureStorageContract= web3.eth.contract(TemparatureStorageCompiled.TemparatureStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var TemparatureStorage = TemparatureStorageContract.new( { from:web3.eth.accounts[0], data:TemparatureStorageCompiled.TemparatureStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+setTempThresholds(18.00,24.00) 
+setTempRecord(27.23, tempr3675) 
+setTempRecord(27.23, "tempr3675") 
+loadScript("init.js")
+setTempRecord(27.23, "tempr3675") 
+loadScript("init.js")
+setTempRecord(27.23, "tempr3675") 
+// Create the contract source code
+var HumidityStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract HumidityStorage is Sequence{ address owner; struct HumidThreshold{ uint lowerTimes100; uint upperTimes100; } struct HumidRecord { address node; uint valueTimes100; string deviceID; uint timestamp; } HumidThreshold public threshold; mapping (uint => HumidRecord) public humidDataMap; event HumidRecordData(address nodeAddress, uint humidValueTimes100, string deviceID, uint timestamp); event HumidThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestamp); function HumidityStorage(){ owner = msg.sender; threshold.lowerTimes100 = 0; threshold.upperTimes100 = 0; } function setHumidRecord(uint humidValueTimes100, string deviceID) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; humidDataMap[recordCount].node = node; humidDataMap[recordCount].valueTimes100 = humidValueTimes100; humidDataMap[recordCount].deviceID = deviceID; humidDataMap[recordCount].timestamp = timestamp; HumidRecordData(humidDataMap[recordCount].node, humidDataMap[recordCount].valueTimes100, humidDataMap[recordCount].deviceID, humidDataMap[recordCount].timestamp); } function setHumidThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; if (node == owner){ threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; HumidThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete humidDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var HumidityStorageCompiled = web3.eth.compile.solidity(HumidityStorageSource)
+// Extracts info from contract, print json serialisation on console
+HumidityStorageCompiled.HumidityStorage.info
+// Create contract object
+var HumidityStorageContract= web3.eth.contract(HumidityStorageCompiled.HumidityStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var HumidityStorage = HumidityStorageContract.new( { from:web3.eth.accounts[0], data:HumidityStorageCompiled.HumidityStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+setHumidThresholds(25.00,60.00)
+setHumidRecord(45.32, "humid5903")
+loadScript("init.js")
+setHumidRecord(45.32, "humid5903")
+setHumidThresholds(25.00,60.00) 
+loadScript("init.js")
+setHumidThresholds(25.00,60.00) 
+setHumidRecord(45.32, "humid5903")
+setTempThresholds(18.00,24.00)
+setTempRecord(27.23, "tempr3675")
+var HumidityStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract HumidityStorage is Sequence{ address owner; struct HumidThreshold{ uint lowerTimes100; uint upperTimes100; } struct HumidRecord { address node; uint valueTimes100; string deviceID; uint timestamp; } HumidThreshold public threshold; mapping (uint => HumidRecord) public humidDataMap; event HumidRecordData(address nodeAddress, uint humidValueTimes100, string deviceID, uint timestamp); event HumidThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestamp); function HumidityStorage(){ owner = msg.sender; threshold.lowerTimes100 = 0; threshold.upperTimes100 = 0; } function setHumidRecord(uint humidValueTimes100, string deviceID) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; humidDataMap[recordCount].node = node; humidDataMap[recordCount].valueTimes100 = humidValueTimes100; humidDataMap[recordCount].deviceID = deviceID; humidDataMap[recordCount].timestamp = timestamp; HumidRecordData(humidDataMap[recordCount].node, humidDataMap[recordCount].valueTimes100, humidDataMap[recordCount].deviceID, humidDataMap[recordCount].timestamp); } function setHumidThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; if (node == owner){ threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; HumidThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete humidDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var HumidityStorageCompiled = web3.eth.compile.solidity(HumidityStorageSource)
+// Extracts info from contract, print json serialisation on console
+HumidityStorageCompiled.HumidityStorage.info
+// Create contract object
+var HumidityStorageContract= web3.eth.contract(HumidityStorageCompiled.HumidityStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var HumidityStorage = HumidityStorageContract.new( { from:web3.eth.accounts[0], data:HumidityStorageCompiled.HumidityStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+setHumidThresholds(25.00,60.00)
+setHumidRecord(45.32, "humid5903")
+var LumenStorageSource = "contract Sequence { uint public sequenceNo; function Sequence() { sequenceNo = 0; } function nextVal() returns (uint number) { return ++sequenceNo; } } contract LumenStorage is Sequence{ address owner; struct LumenThreshold{ uint lowerTimes100; uint upperTimes100; } struct LumenRecord { address node; uint valueTimes100; string deviceID; uint timestamp; } LumenThreshold public threshold; mapping (uint => LumenRecord) public lumenDataMap; event LumenRecordData(address nodeAddress, uint lumenValueTimes100, string deviceID, uint timestamp); event LumenThresholds(address nodeAddress, uint thresholdLowerTimes100, uint thresholdUpperTimes100, uint timestamp); function LumenStorage(){ owner = msg.sender; threshold.lowerTimes100 = 0; threshold.upperTimes100 = 0; } function setLumenRecord(uint lumenValueTimes100, string deviceID) { uint recordCount = nextVal(); address node = msg.sender; uint timestamp = now; lumenDataMap[recordCount].node = node; lumenDataMap[recordCount].valueTimes100 = lumenValueTimes100; lumenDataMap[recordCount].deviceID = deviceID; lumenDataMap[recordCount].timestamp = timestamp; LumenRecordData(lumenDataMap[recordCount].node, lumenDataMap[recordCount].valueTimes100, lumenDataMap[recordCount].deviceID, lumenDataMap[recordCount].timestamp); } function setLumenThresholds(uint lowerThresholdTimes100, uint upperThresholdTimes100) { address node = msg.sender; uint timestamp = now; if (node == owner){ threshold.lowerTimes100 = lowerThresholdTimes100; threshold.upperTimes100 = upperThresholdTimes100; LumenThresholds(node, threshold.lowerTimes100, threshold.upperTimes100, timestamp); } } function reset() { for (uint i = 1; i<=sequenceNo; i++){ delete lumenDataMap[i]; } sequenceNo = 0; } }"
+// Compile the source with solc - Solidity Compiler
+var LumenStorageCompiled = web3.eth.compile.solidity(LumenStorageSource)
+// Extracts info from contract, print json serialisation on console
+LumenStorageCompiled.LumenStorage.info
+// Create contract object
+var LumenStorageContract= web3.eth.contract(LumenStorageCompiled.LumenStorage.info.abiDefinition);
+// Submit contract for inclusion in the Blockchain
+var LumenStorage = LumenStorageContract.new( { from:web3.eth.accounts[0], data:LumenStorageCompiled.LumenStorage.code, gas: 10000000 }, function(e, contract){ if(!e) { if(!contract.address) { console.log("Contract transaction send: TransactionHash: " + contract.transactionHash + " waiting to be mined..."); } else { console.log("Contract mined! Address: " + contract.address); console.log(contract); } } })
+loadScript("init.js")
+resetLumen()
+loadScript("init.js")
+resetLumen()
+loadScript("init.js")
+resetLumen()
+setLumenhresholds(500.00,1000.00)
+setLumenThresholds(500.00,1000.00)
+setLumenRecord(700.32, "lumen8945") 
+getLumenThresholdLower()
+getLumenThresholdUpper()
+getLumenHistRecordCount()
+getLumenRecordAt(getLumenHistRecordCount())
+printLumenRecordAt(getLumenHistRecordCount())
+getLumenFlag(770.37);
+getLumenFlag(170.37);
+getLumenFlag(17000.37);
+getLumenFlag(7700.37);
+setLumenRecord(400.32, "lumen8945")
+loadScript("init.js")
+setLumenRecord(400.32, "lumen8945")
+web3.net.peerCount
+web3.admin.peers
+loadScript("init.js")
+setTempRecord(27.23, "tempr3675")
+setHumidRecord(45.32, "humid5903") 
+setLumenRecord(400.32, "lumen8945") 
+setTempRecord(37.23, "tempr3675")
+loadScript("init.js")
+loadScript("mining.js")
+setTempRecord(27.23, "tempr3675")
+setHumidRecord(45.32, "humid5903")
+setTempRecord(10, "tempr3675")
+getLumenFlag(170.37);
+setTempRecord(10, "tempr3675")
+getLumenFlag(170.37);
+setTempThresholds(18.00,24.00)
+loadScript("init.js")
+loadScript("mining.js")
+setTempThresholds(18.00,24.00)
+stop
+loadScript("init.js")
+loadScript("mining.js")
+loadScript("init.js")
+loadScript("mining.js")

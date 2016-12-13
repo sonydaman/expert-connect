@@ -1,1 +1,0 @@
-geth --genesis ./genesis.json --datadir ./datadir --networkid 123 --ipcdisable --port 30301 console 
